@@ -277,7 +277,7 @@ def carbonylwaters(allligand,index,bond_dist):
 	xaxis = unitvector(np.cross(v1,v2))
 	yaxis = unitvector(ocoods - Omatecood)
 	zaxis = unitvector(np.cross(xaxis,yaxis))
-	watercood = np.zeros((11,3), dtype = float)
+	watercood = np.zeros((13,3), dtype = float)
 
 	V = (D*yaxis)
 
@@ -325,8 +325,27 @@ def carbonylwaters(allligand,index,bond_dist):
 		partY = np.sin(radangle) * np.cross(xaxis,V)
 		partZ = (1-np.cos(radangle)) * np.dot(xaxis,np.transpose(watercood[i-7,:])) * xaxis
 		watercood[i,:] = partX + partY + partZ
-		
 
+	for i in xrange(11,13):
+		if i == 11:
+			degreeangle = -70.0
+			
+		else:
+			degreeangle = 70.0
+		radangle = np.pi*(degreeangle/180)
+		
+		#Rotation Matrix
+		#Vrot = vcos(@) + (k x v)sin(@) + k(k.v)(1 - cos(@))
+		#Euler-Rodrigues Rotation Formula 
+		#v - Vector to be rotated
+		#@ - Angle to be rotated by
+		#k - Unit Vector to be rotated about
+
+		partX = V * np.cos(radangle)
+		partY = np.sin(radangle) * np.cross(xaxis,V)
+		partZ = (1-np.cos(radangle)) * np.dot(xaxis,np.transpose(V)) * xaxis
+		watercood[i,:] = partX + partY + partZ
+	
 	watercood = watercood + ocoods
 
 	return watercood
