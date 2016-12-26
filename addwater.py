@@ -503,8 +503,9 @@ def threetertaminewater(allligand,index,bond_dist):
 	centroid = (base1cood + base2cood + base3cood)/3
 	vector = unitvector(ncoods - centroid)
 
-	watercood = np.zeros((1,3), dtype = float)
+	watercood = np.zeros((2,3), dtype = float)
 	watercood[0,:] = ncoods + (D*vector)
+	watercood[1,:] = ncoods - (D*vector)
 	return watercood
 ######################################################################################################################################################################
 ######################################################################################################################################################################
@@ -593,11 +594,17 @@ def ammoniawater(allligand,index,bond_dist):
 	vector1 = unitvector(tempvector[0,:])
 	vector2 = unitvector(tempvector[1,:])
 	vector3 = unitvector(tempvector[2,:])
-	watercood = np.zeros((3,3), dtype = float)
+	watercood = np.zeros((4,3), dtype = float)
 	watercood[0,:] = ncoods + (D*vector1)
 	watercood[1,:] = ncoods + (D*vector2)
 	watercood[2,:] = ncoods + (D*vector3)
 
+	for j in mates:
+		if allligand[j].type == 'C':
+			k = j
+
+	zvec = unitvector(ncoods - allligandcoods[k,:])
+	watercood[3,:] = ncoods + (D*zvec)
 
 	return watercood
 ######################################################################################################################################################################
