@@ -20,3 +20,10 @@ FILE FORMATS
 Protein File -- *pdbqt*
 
 Ligand File -- *pdb/mol2*
+Check to ensure that Hydrogens are added correctly. 
+
+KNOWN ISSUES
+
+The MDAnalysis package struggles with the 'CONECT' information in the *pdb* files.
+Make sure to remove them from the ligand pdb files supplied.
+WaterDock2.0 is automatically guesses connectivity information using a procedure similar to the one used by *Antechamber* of the *AMBER* package. 
